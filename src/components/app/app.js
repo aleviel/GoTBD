@@ -21,10 +21,10 @@ export default class App extends Component {
 						</Col>
 					</Row>
 					<Row>
-						<Col md='6'>
+						<Col md={{ size: 6, offset: 0 }}>
 							<CharDetails />
 						</Col>
-						<Col md='6'>
+						<Col md={{ size: 6, offset: 0 }}>
 							<ItemList />
 						</Col>
 					</Row>

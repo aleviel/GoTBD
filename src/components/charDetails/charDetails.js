@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CharDetailsBlock } from './styles';
+import { CharDetailsBlock, Term } from './styles';
 
 export default class CharDetails extends Component {
 	state = {}
@@ -7,23 +7,23 @@ export default class CharDetails extends Component {
 	render() {
 
 		return (
-			<CharDetailsBlock>
+			<CharDetailsBlock className='rounded'>
 				<h4>John Snow</h4>
 				<ul className="list-group list-group-flush">
 					<li className="list-group-item d-flex justify-content-between">
-						<span className="term">Gender</span>
+						<Term>Gender</Term>
 						<span>male</span>
 					</li>
 					<li className="list-group-item d-flex justify-content-between">
-						<span className="term">Born</span>
+						<Term>Born</Term>
 						<span>1783</span>
 					</li>
 					<li className="list-group-item d-flex justify-content-between">
-						<span className="term">Died</span>
+						<Term>Died</Term>
 						<span>1820</span>
 					</li>
 					<li className="list-group-item d-flex justify-content-between">
-						<span className="term">Culture</span>
+						<Term>Culture</Term>
 						<span>First</span>
 					</li>
 				</ul>

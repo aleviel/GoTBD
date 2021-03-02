@@ -9,7 +9,7 @@ export default class Header extends Component {
 				<HeaderTitle>
 					<a href="#">
 						Game of Thrones DB
-                </a>
+                	</a>
 				</HeaderTitle>
 				<HeaderLinks>
 					<li>
