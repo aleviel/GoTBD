@@ -5,7 +5,6 @@ import Header from '../header/header';
 import ItemList from '../itemList/itemList';
 import RandomChar from '../randomChar/';
 
-
 export default class App extends Component {
 	state = {}
 	render() {
@@ -22,10 +21,10 @@ export default class App extends Component {
 					</Row>
 					<Row>
 						<Col md={{ size: 6, offset: 0 }}>
-							<CharDetails />
+							<ItemList />
 						</Col>
 						<Col md={{ size: 6, offset: 0 }}>
-							<ItemList />
+							<CharDetails />
 						</Col>
 					</Row>
 				</Container>
