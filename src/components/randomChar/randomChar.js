@@ -1,31 +1,88 @@
 import React, { Component } from 'react';
 import { Term, RandomBlock } from './styles';
+import GoTService from '../../services/gotService';
+import Spinner from '../spinner';
+import ErrorMsg from '../error';
 
 export default class randomChar extends Component {
-	state = {}
+
+	constructor() {
+		super()
+		this.updateChar()
+	}
+
+	state = {
+		char: {
+		},
+		loading: true,
+		error: false
+	}
+
+	gotService = new GoTService();
+
+	updateChar() {
+		const id = Math.floor(Math.random() * 1000 + 25)
+		this.gotService
+			.getChar(id)
+			.then(this.onLoaded)
+			.catch(this.onError)
+	}
+
+	onLoaded = (char) => {
+		this.setState({
+			char,
+			loading: false
+		})
+	}
+
+	onError = () => {
+		this.setState({
+			error: true,
+			loading: false
+		})
+	}
+
+
 	render() {
+
+		const { char, loading, error } = this.state;
+		const errorM = error ? <ErrorMsg /> : null;
+		const spinner = loading ? <Spinner /> : null;
+		const content = !(loading | error) ? <View char={char} /> : null;
 		return (
 			<RandomBlock className='rounded' >
-				<h4>Random Character: John</h4>
-				<ul className="list-group list-group-flush">
-					<li className="list-group-item d-flex justify-content-between">
-						<Term> Gender </Term>
-						<span>male</span>
-					</li>
-					<li className="list-group-item d-flex justify-content-between">
-						<Term> Born </Term>
-						<span>11.03.1039</span>
-					</li>
-					<li className="list-group-item d-flex justify-content-between">
-						<Term> Died </Term>
-						<span>13.09.1089</span>
-					</li>
-					<li className="list-group-item d-flex justify-content-between">
-						<Term> Culture </Term>
-						<span>Anarchy</span>
-					</li>
-				</ul>
-			</RandomBlock>
+				{errorM}
+				{spinner}
+				{content}
+			</RandomBlock >
 		);
 	}
+}
+
+const View = ({ char }) => {
+
+	const { name, gender, born, died, culture } = char;
+	return (
+		<>
+			<h4> Random Character: {name}</h4>
+			<ul className="list-group list-group-flush">
+				<li className="list-group-item d-flex justify-content-between">
+					<Term> Gender </Term>
+					<span> {gender} </span>
+				</li>
+				<li className="list-group-item d-flex justify-content-between">
+					<Term> Born </Term>
+					<span> {born} </span>
+				</li>
+				<li className="list-group-item d-flex justify-content-between">
+					<Term> Died </Term>
+					<span> {died} </span>
+				</li>
+				<li className="list-group-item d-flex justify-content-between">
+					<Term> Culture </Term>
+					<span> {culture} </span>
+				</li>
+			</ul>
+		</>
+	);
 }
