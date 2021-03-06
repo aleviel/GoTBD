@@ -29,7 +29,7 @@ export default class GoTService {
 	}
 
 	async getAllChars() {
-		const res = await this.getResource('/characters');
+		const res = await this.getResource('/characters?page=4&pageSize=10/');
 		return res.map(elem => this._transformChar(elem));
 	}
 
