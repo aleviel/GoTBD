@@ -14,7 +14,7 @@ export default class randomChar extends Component {
 
     componentDidMount() {
         this.updateChar();
-        this.timerId = setInterval(this.updateChar, 1500)
+        this.timerId = setInterval(this.updateChar, 15000)
     }
 
     componentWillUnmount() {
@@ -29,7 +29,6 @@ export default class randomChar extends Component {
             .getChar(id)
             .then(this.onLoaded)
             .catch(this.onError)
-        console.log('updating')
     }
 
     onLoaded = (char) => {
@@ -52,7 +51,7 @@ export default class randomChar extends Component {
         const {char, loading, error} = this.state;
         const errorM = error ? <ErrorMsg/> : null;
         const spinner = loading ? <Spinner/> : null;
-        const content = !(loading | error) ? <View char={char}/> : null;
+        const content = !(loading || error) ? <View char={char}/> : null;
         return (
             <RandomBlock className='rounded'>
                 {errorM}

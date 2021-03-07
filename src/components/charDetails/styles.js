@@ -15,10 +15,10 @@ const Term = styled.span`
     font-weight: bold;
 `
 
-export { CharDetailsBlock, Term }
+const SelectedError = styled.span`
+    color: #fff;
+    text-align: center;
+    font-size: 26px;
+`
 
-// .select-error {
-//     color: #fff;
-//     text-align: center;
-//     font-size: 26px;
-// }
+export {CharDetailsBlock, Term, SelectedError}

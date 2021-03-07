@@ -8,7 +8,8 @@ import ToggleBtn from './styles';
 
 export default class App extends Component {
     state = {
-        showChar: true
+        showChar: true,
+        selectedChar: null
     }
 
     toggleChar = () => {
@@ -19,8 +20,14 @@ export default class App extends Component {
         })
     }
 
+    onCharSelected = (id) => {
+        this.setState({
+            selectedChar: id
+        })
+    }
+
     render() {
-        const {showChar} = this.state;
+        const {showChar, selectedChar} = this.state;
         const content = showChar ? <RandomChar/> : null;
         return (
             <>
@@ -41,10 +48,12 @@ export default class App extends Component {
                     </Row>
                     <Row>
                         <Col md={{size: 6, offset: 0}}>
-                            <ItemList/>
+                            <ItemList
+                                onCharSelected={this.onCharSelected}/>
                         </Col>
                         <Col md={{size: 6, offset: 0}}>
-                            <CharDetails/>
+                            <CharDetails
+                                selectedChar={selectedChar}/>
                         </Col>
                     </Row>
                 </Container>
