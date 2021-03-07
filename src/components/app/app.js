@@ -4,12 +4,22 @@ import Header from '../header/header';
 import RandomChar from '../randomChar/';
 import CharPage from "../charPage";
 import ToggleBtn from './styles';
+import ErrorMsg from "../error";
 
 
 export default class App extends Component {
     state = {
-        showChar: true
+        showChar: true,
+        error: false
     }
+
+    componentDidCatch(error, info) {
+        console.log(`error ${error}${info}`)
+        this.setState({
+            error: true
+        })
+    }
+
 
     toggleChar = () => {
         this.setState(state => {
@@ -20,8 +30,13 @@ export default class App extends Component {
     }
 
     render() {
-        const {showChar} = this.state;
+        const {showChar, error} = this.state;
         const content = showChar ? <RandomChar/> : null;
+
+        if (error) {
+            return <ErrorMsg/>
+        }
+
         return (
             <>
                 <Container>
