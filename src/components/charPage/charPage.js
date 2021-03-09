@@ -3,10 +3,13 @@ import {Col, Row} from "reactstrap";
 import ItemList from "../itemList";
 import CharDetails from "../charDetails";
 import ErrorMsg from "../error";
+import GoTService from "../../services/gotService";
 
 export default class CharPage extends Component {
+    gotService = new GoTService()
+
     state = {
-        selectedChar: null,
+        selectedItem: null,
         error: false
     }
 
@@ -17,14 +20,14 @@ export default class CharPage extends Component {
     }
 
 
-    onCharSelected = (id) => {
+    onItemSelected = (id) => {
         this.setState({
-            selectedChar: id
+            selectedItem: id
         })
     }
 
     render() {
-        const {selectedChar, error} = this.state;
+        const {selectedItem, error} = this.state;
 
         if (error) {
             return (
@@ -36,11 +39,16 @@ export default class CharPage extends Component {
             <Row>
                 <Col md={{size: 6, offset: 0}}>
                     <ItemList
-                        onCharSelected={this.onCharSelected}/>
+                        onItemSelected={this.onItemSelected}
+                        getData={this.gotService.getAllChars}
+                        renderItem={item => {
+                            return `${item.name} (${item.gender})`
+                        }}
+                    />
                 </Col>
                 <Col md={{size: 6, offset: 0}}>
                     <CharDetails
-                        selectedChar={selectedChar}/>
+                        selectedChar={selectedItem}/>
                 </Col>
             </Row>
         );
