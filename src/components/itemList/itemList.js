@@ -42,8 +42,8 @@ export default class ItemList extends Component {
     renderItems(arr) {
         return arr.map((item) => {
             const {id} = item;
-            const {onItemSelected} = this.props;
-            const label = this.props.renderItem(item)
+            const {onItemSelected, renderItem} = this.props;
+            const label = renderItem(item)
             return (
                 <ListItem
                     key={id}
