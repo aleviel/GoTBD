@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ListItem from './styles';
-import GoTService from "../../services/gotService";
 import Spinner from "../spinner";
 import ErrorMsg from "../error";
 
