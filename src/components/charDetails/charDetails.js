@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {CharDetailsBlock, Term, SelectedError} from './styles';
-import GoTService from "../../services/gotService";
 import Spinner from "../spinner";
 import ErrorMsg from "../error";
 
@@ -22,8 +21,6 @@ export default class CharDetails extends Component {
         error: false
     }
 
-    gotService = new GoTService();
-
     componentDidMount() {
         this.updateChar()
     }
@@ -35,7 +32,7 @@ export default class CharDetails extends Component {
     }
 
     updateChar = () => {
-        const {selectedChar} = this.props;
+        const {selectedChar, getData} = this.props;
 
         if (!selectedChar) {
             return
@@ -45,7 +42,7 @@ export default class CharDetails extends Component {
             loading: true
         })
 
-        this.gotService.getChar(selectedChar)
+        getData(selectedChar)
             .then(this.onUpdateChar)
             .catch(() => this.onError())
     }

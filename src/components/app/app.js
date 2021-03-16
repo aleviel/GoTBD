@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import {Container, Row, Col} from 'reactstrap';
 import Header from '../header/header';
 import RandomChar from '../randomChar/';
-import CharPage from "../charPage";
+import {CharPage, HousesPage, BooksPage} from "../pages/";
 import ToggleBtn from './styles';
 import ErrorMsg from "../error";
-
 
 export default class App extends Component {
     state = {
@@ -55,6 +54,8 @@ export default class App extends Component {
                         </Col>
                     </Row>
                     <CharPage/>
+                    <BooksPage/>
+                    <HousesPage/>
                 </Container>
             </>
         );

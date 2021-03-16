@@ -55,6 +55,7 @@ export default class GoTService {
 
     _transformBook = (data) => {
         return {
+            id: this._extractId(data),
             name: this._isEmp(data.name),
             numberOfPages: this._isEmp(data.numberOfPages),
             publisher: this._isEmp(data.publisher),
@@ -75,6 +76,7 @@ export default class GoTService {
 
     _transformHouse = (data) => {
         return {
+            id: this._extractId(data),
             name: this._isEmp(data.name),
             region: this._isEmp(data.region),
             words: this._isEmp(data.words),

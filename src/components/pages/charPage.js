@@ -29,7 +29,6 @@ export default class CharPage extends Component {
     render() {
         const {selectedItem, error} = this.state;
 
-
         const itemList = (
             <ItemList
                 onItemSelected={this.onItemSelected}
@@ -42,7 +41,8 @@ export default class CharPage extends Component {
 
         const charDetails = (
             <CharDetails
-                selectedChar={selectedItem}>
+                selectedChar={selectedItem}
+                getData={this.gotService.getChar}>
                 <Field
                     field={'gender'}
                     label={'Gender'}/>
