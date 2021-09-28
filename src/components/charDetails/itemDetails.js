@@ -14,7 +14,7 @@ const Field = ({char, field, label}) => {
 
 export {Field}
 
-export default class CharDetails extends Component {
+export default class ItemDetails extends Component {
     state = {
         char: null,
         loading: true,
@@ -67,7 +67,7 @@ export default class CharDetails extends Component {
             return < ErrorMsg/>
         } else if (!char) {
             return (
-                <SelectedError>Please select a character</SelectedError>
+                <SelectedError>{this.props.msg || ''}</SelectedError>
             )
         }
 

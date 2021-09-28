@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ItemList from '../itemList';
 import ErrorMsg from '../error';
 import gotService from '../../services/gotService';
-import CharDetails, {Field} from "../charDetails";
+import ItemDetails, {Field} from "../charDetails";
 import RowBlock from "../rowBlock";
 
 export default class BooksPage extends Component {
@@ -40,9 +40,10 @@ export default class BooksPage extends Component {
         )
 
         const details = (
-            <CharDetails
+            <ItemDetails
                 selectedChar={selectedBook}
                 getData={this.gotService.getBook}
+                msg='Please select a book'
             >
                 <Field field={'name'}
                        label={'Name'}/>
@@ -53,7 +54,7 @@ export default class BooksPage extends Component {
                 <Field field={'released'}
                        label={'Released'}/>
 
-            </CharDetails>
+            </ItemDetails>
         )
 
         return (

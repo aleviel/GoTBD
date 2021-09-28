@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ItemList from "../itemList";
-import CharDetails, {Field} from "../charDetails";
+import ItemDetails, {Field} from "../charDetails";
 import ErrorMsg from "../error";
 import GoTService from "../../services/gotService";
 import RowBlock from "../rowBlock";
@@ -40,9 +40,11 @@ export default class CharPage extends Component {
         )
 
         const charDetails = (
-            <CharDetails
+            <ItemDetails
                 selectedChar={selectedItem}
-                getData={this.gotService.getChar}>
+                getData={this.gotService.getChar}
+                msg='Please select a character'
+            >
                 <Field
                     field={'gender'}
                     label={'Gender'}/>
@@ -55,7 +57,7 @@ export default class CharPage extends Component {
                 <Field
                     field={'culture'}
                     label={'Culture'}/>
-            </CharDetails>
+            </ItemDetails>
         )
 
 

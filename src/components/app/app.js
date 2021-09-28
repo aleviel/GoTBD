@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Row, Col} from 'reactstrap';
+import {BrowserRouter, Route} from 'react-router-dom';
 import Header from '../header/header';
 import RandomChar from '../randomChar/';
 import {CharPage, HousesPage, BooksPage} from "../pages/";
@@ -37,7 +38,7 @@ export default class App extends Component {
         }
 
         return (
-            <>
+            <BrowserRouter>
                 <Container>
                     <Header/>
                 </Container>
@@ -53,11 +54,11 @@ export default class App extends Component {
                             {content}
                         </Col>
                     </Row>
-                    <CharPage/>
-                    <BooksPage/>
-                    <HousesPage/>
+                    <Route path='/characters' component={CharPage}/>
+                    <Route path='/books' component={BooksPage}/>
+                    <Route path='/houses' component={HousesPage}/>
                 </Container>
-            </>
+            </BrowserRouter>
         );
     }
 }
