@@ -1,97 +1,81 @@
-import React, {Component} from 'react';
-import {CharDetailsBlock, Term, SelectedError} from './styles';
-import Spinner from "../spinner";
-import ErrorMsg from "../error";
+import React, { useEffect, useState } from 'react';
 
-const Field = ({char, field, label}) => {
-    return (
-        <li className="list-group-item d-flex justify-content-between">
-            <Term>{label}</Term>
-            <span>{char[field]}</span>
-        </li>
-    )
-}
+import Spinner from '../spinner';
+import ErrorMsg from '../error';
 
-export {Field}
+import { CharDetailsBlock, SelectedError } from './styles';
 
-export default class ItemDetails extends Component {
-    state = {
+const ItemDetails = ({ selectedChar, getData, msg, children }) => {
+    const [state, setState] = useState({
         char: null,
         loading: true,
-        error: false
-    }
+        error: false,
+    });
 
-    componentDidMount() {
-        this.updateChar()
-    }
+    useEffect(() => {
+        updateChar();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedChar]);
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.selectedChar !== this.props.selectedChar) {
-            this.updateChar()
-        }
-    }
-
-    updateChar = () => {
-        const {selectedChar, getData} = this.props;
-
+    const updateChar = () => {
         if (!selectedChar) {
-            return
+            return;
         }
 
-        this.setState({
-            loading: true
-        })
+        setState({
+            loading: true,
+        });
 
         getData(selectedChar)
-            .then(this.onUpdateChar)
-            .catch(() => this.onError())
-    }
+            .then(onUpdateChar)
+            .catch(() => onError());
+    };
 
-    onUpdateChar = (char) => {
-        this.setState({
+    const onUpdateChar = (char) => {
+        setState({
             char,
-            loading: false
-        })
-    }
+            loading: false,
+        });
+    };
 
-    onError = () => {
+    const onError = () => {
         this.setState({
             char: null,
-            error: true
-        })
+            error: true,
+        });
+    };
+
+    const { char, error, loading } = state;
+    if (!char && error) {
+        return <ErrorMsg />;
+    } else if (!char) {
+        return <SelectedError>{msg || ''}</SelectedError>;
     }
 
-    render() {
-        const {char, error, loading} = this.state;
-        if (!char && error) {
-            return < ErrorMsg/>
-        } else if (!char) {
-            return (
-                <SelectedError>{this.props.msg || ''}</SelectedError>
-            )
-        }
-
-        if (loading) {
-            return (
-                <CharDetailsBlock className='rounded'>
-                    <Spinner/>
-                </CharDetailsBlock>
-            )
-        }
-
-        const {name} = char;
-
+    if (loading) {
         return (
-            <CharDetailsBlock className='rounded'>
-                <h4>{name}</h4>
-                <ul className="list-group list-group-flush">
-                    {
-                        React.Children.map(this.props.children, (child) => {
-                            return React.cloneElement(child, {char})
-                        })
-                    }
-                </ul>
+            <CharDetailsBlock className="rounded">
+                <Spinner />
             </CharDetailsBlock>
         );
     }
-}
+
+    const { name } = char;
+    console.log(children);
+
+    return (
+        <CharDetailsBlock className="rounded">
+            <h4>{name}</h4>
+            <ul className="list-group list-group-flush">
+                {children.map((elem) => {
+                    return React.cloneElement(elem, {
+                        char,
+                        key: elem.props.field,
+                    });
+                })}
+            </ul>
+        </CharDetailsBlock>
+    );
+};
+
+export default ItemDetails;

@@ -1,60 +1,54 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
+
 import ItemList from '../itemList';
-import ItemDetails, {Field} from '../charDetails';
+import ItemDetails from '../charDetails';
 import ErrorMsg from '../error';
-import GoTService from '../../services/gotService';
 import RowBlock from '../rowBlock';
+import Field from '../field';
 
-export default class HousesPage extends Component {
-    gotService = new GoTService();
+import GoTService from '../../services/gotService';
 
-    state = {
+const HousesPage = () => {
+    const gotService = new GoTService();
+
+    const [state, setState] = useState({
         selectedHouse: null,
-        error: false
+        error: false,
+    });
+
+    const onItemSelected = (id) => {
+        setState({
+            selectedHouse: id,
+        });
+    };
+
+    if (state.error) {
+        return <ErrorMsg />;
     }
 
-    onItemSelected = (id) => {
-        this.setState({
-            selectedHouse: id
-        })
-    }
+    const itemList = (
+        <ItemList
+            onItemSelected={onItemSelected}
+            getData={gotService.getAllHouses}
+            renderItem={(item) => {
+                return `${item.name}`;
+            }}
+        />
+    );
 
-    componentDidCatch() {
-        this.setState({
-            error: true
-        })
-    }
+    const itemDetails = (
+        <ItemDetails
+            selectedChar={state.selectedHouse}
+            getData={gotService.getHouse}
+            msg="Please select a house"
+        >
+            <Field field="region" label="Region" />
+            <Field field="words" label="Words" />
+            <Field field="titles" label="Titles" />
+            <Field field="ancestralWeapons" label="Ancestral Weapons" />
+        </ItemDetails>
+    );
 
-    render() {
-        if (this.state.error) {
-            return <ErrorMsg/>
-        }
-
-        const itemList = (
-            <ItemList
-                onItemSelected={this.onItemSelected}
-                getData={this.gotService.getAllHouses}
-                renderItem={item => {
-                    return `${item.name}`
-                }}
-            />
-        )
-
-        const itemDetails = (
-            <ItemDetails
-                selectedChar={this.state.selectedHouse}
-                getData={this.gotService.getHouse}
-                msg='Please select a house'>
-                <Field field='region' label='Region'/>
-                <Field field='words' label='Words'/>
-                <Field field='titles' label='Titles'/>
-                <Field field='ancestralWeapons' label='Ancestral Weapons'/>
-            </ItemDetails>
-        )
-
-        return (
-            <RowBlock left={itemList} right={itemDetails}/>
-        )
-    }
-
-}
+    return <RowBlock left={itemList} right={itemDetails} />;
+};
+export default HousesPage;
