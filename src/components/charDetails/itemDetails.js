@@ -61,7 +61,6 @@ const ItemDetails = ({ selectedChar, getData, msg, children }) => {
     }
 
     const { name } = char;
-    console.log(children);
 
     return (
         <CharDetailsBlock className="rounded">
